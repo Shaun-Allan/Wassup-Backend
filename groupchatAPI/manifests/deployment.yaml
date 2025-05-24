@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: group-server
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: group-server
+  template:
+    metadata:
+      labels:
+        app: group-server
+    spec:
+      containers:
+        - name: group-server
+          image: your-dockerhub-username/group-server:latest
+          ports:
+            - containerPort: 5005
+          env:
+            - name: MONGO_URI
+              value: "mongodb://mongo:27017"

@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-search
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: user-search
+  template:
+    metadata:
+      labels:
+        app: user-search
+    spec:
+      containers:
+        - name: user-search
+          image: your-dockerhub-username/user-search:latest
+          ports:
+            - containerPort: 5001
+          env:
+            - name: DB_URL
+              value: "postgres://shaun:shaun@postgres:5432/wassupdb"

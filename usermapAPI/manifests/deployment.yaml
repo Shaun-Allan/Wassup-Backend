@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: get-name-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: get-name-service
+  template:
+    metadata:
+      labels:
+        app: get-name-service
+    spec:
+      containers:
+        - name: get-name-service
+          image: your-dockerhub-username/get-name-service:latest
+          ports:
+            - containerPort: 5006
+          env:
+            - name: DB_URL
+              value: "postgres://shaun:shaun@postgres:5432/wassupdb?sslmode=disable"

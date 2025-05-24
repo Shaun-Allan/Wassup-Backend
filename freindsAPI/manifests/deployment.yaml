@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wassup-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wassup
+  template:
+    metadata:
+      labels:
+        app: wassup
+    spec:
+      containers:
+        - name: app
+          image: your-dockerhub-username/wassup-backend:latest
+          ports:
+            - containerPort: 5002
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: DATABASE_URL
